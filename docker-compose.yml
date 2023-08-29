@@ -79,7 +79,7 @@ services:
       - main
       - nginx_network
     container_name: app
-    command: sh -c "python manage.py collectstatic --noinput && python manage.py makemigrations && python manage.py migrate && gunicorn config.wsgi -b 0.0.0.0:8000"
+    command: sh -c "python manage.py collectstatic --noinput && python manage.py makemigrations && python manage.py migrate && gunicorn config.wsgi -b 0.0.0.0:8019"
     depends_on:
       - rabbitmq
       - postgres
