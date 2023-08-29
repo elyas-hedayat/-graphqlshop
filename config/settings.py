@@ -17,7 +17,6 @@ from redis import Redis
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -30,110 +29,108 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 if DEBUG == True:
-	REDIS = Redis.from_url('redis://')
+    REDIS = Redis.from_url('redis://')
 else:
-	REDIS = Redis.from_url('redis://redis')
-
+    REDIS = Redis.from_url('redis://redis')
 
 # Application definition
 
 INSTALLED_APPS = [
-	'django.contrib.admin',
-	'django.contrib.auth',
-	'django.contrib.contenttypes',
-	'django.contrib.sessions',
-	'django.contrib.messages',
-	'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 
-	# Third apps
-	'django_celery_beat',
-	'graphene_django',
-	'django_filters',
-	'taggit',
-	
-	# Local app
-	'product.apps.ProductConfig',
-	'comment.apps.CommentConfig',
-	'accounts.apps.AccountsConfig',
-	'category.apps.CategoryConfig',
-	'cart.apps.CartConfig',
-	'order.apps.OrderConfig',
-	'blog.apps.BlogConfig',
-	'search.apps.SearchConfig',
-	'charts.apps.ChartsConfig',
+    # Third apps
+    'django_celery_beat',
+    'graphene_django',
+    'django_filters',
+    'taggit',
+    "corsheaders",
+
+    # Local app
+    'product.apps.ProductConfig',
+    'comment.apps.CommentConfig',
+    'accounts.apps.AccountsConfig',
+    'category.apps.CategoryConfig',
+    'cart.apps.CartConfig',
+    'order.apps.OrderConfig',
+    'blog.apps.BlogConfig',
+    'search.apps.SearchConfig',
+    'charts.apps.ChartsConfig',
 ]
 
 MIDDLEWARE = [
-	'django.middleware.security.SecurityMiddleware',
-	'django.contrib.sessions.middleware.SessionMiddleware',
-	'django.middleware.common.CommonMiddleware',
-	'django.middleware.csrf.CsrfViewMiddleware',
-	'django.contrib.auth.middleware.AuthenticationMiddleware',
-	'django.contrib.messages.middleware.MessageMiddleware',
-	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
-	{
-		'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': [BASE_DIR / 'templates'],
-		'APP_DIRS': True,
-		'OPTIONS': {
-			'context_processors': [
-				'django.template.context_processors.debug',
-				'django.template.context_processors.request',
-				'django.contrib.auth.context_processors.auth',
-				'django.contrib.messages.context_processors.messages',
-			],
-		},
-	},
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 if DEBUG == True:
-	DATABASES = {
-		'default': {
-			'ENGINE': 'django.db.backends.sqlite3',
-			'NAME': BASE_DIR / 'db.sqlite3',
-		}
-	}
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 else:
-	DATABASES = {
-		'default': {
-			'ENGINE': config('ENGINE'),
-			'NAME': config('NAME'),
-			'USER': config('USER'),
-			'PASSWORD': config('PASSWORD'),
-			'HOST': config('HOST'),
-			'PORT': config('PORT'),
-		}
-	}
-
+    DATABASES = {
+        'default': {
+            'ENGINE': config('ENGINE'),
+            'NAME': config('NAME'),
+            'USER': config('USER'),
+            'PASSWORD': config('PASSWORD'),
+            'HOST': config('HOST'),
+            'PORT': config('PORT'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-	{
-		'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-	},
-	{
-		'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-	},
-	{
-		'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-	},
-	{
-		'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-	},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -147,7 +144,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -163,21 +159,19 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 GRAPHENE = {
-	"SCHEMA": "config.schema.schema",
-	'MIDDLEWARE': [
-		'graphql_jwt.middleware.JSONWebTokenMiddleware',
-	],
+    "SCHEMA": "config.schema.schema",
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
 
 AUTHENTICATION_BACKENDS = [
-	'graphql_jwt.backends.JSONWebTokenBackend',
-	'django.contrib.auth.backends.ModelBackend',
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
-AUTH_USER_MODEL = 'accounts.User' 
-
+AUTH_USER_MODEL = 'accounts.User'
 
 # Email config
 EMAIL_BACKEND = config('EMAIL_BACKEND')
@@ -192,30 +186,31 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 # Cart config
 CART_SESSION_ID = 'cart'
 
-
 if DEBUG == True:
-	CACHES = {
-		"default": {
-			"BACKEND": "django_redis.cache.RedisCache",
-			"LOCATION": "redis://127.0.0.1:6379/1",
-			"OPTIONS": {
-				"CLIENT_CLASS": "django_redis.client.DefaultClient",
-			}
-		}
-	}
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/1",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+        }
+    }
 else:
-	CACHES = {
-		"default": {
-			"BACKEND": "django_redis.cache.RedisCache",
-			"LOCATION": "redis://redis/1",
-			"OPTIONS": {
-				"CLIENT_CLASS": "django_redis.client.DefaultClient",
-			}
-		}
-	}
-
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://redis/1",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+        }
+    }
 
 CATEGORIES_TIMEOUT = 1000
 PRODUCTS_TIMEOUT = 1000
 ARTICLES_TIMEOUT = 1000
 EXPIRED_TIME = 900
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
