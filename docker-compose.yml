@@ -74,7 +74,7 @@ services:
       - media_file:/app/media
     restart: always
     ports:
-      - "8000:8000"
+      - "8019:8019"
     networks:
       - main
       - nginx_network
