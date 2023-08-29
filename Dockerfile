@@ -13,4 +13,4 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 
-CMD ["gunicorn", "--chdir", "config", "--bind", ":8000", "config.wsgi:application"]
+CMD ["gunicorn", "--chdir", "config", "--bind", ":8019", "config.wsgi:application"]
