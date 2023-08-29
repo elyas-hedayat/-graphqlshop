@@ -25,7 +25,7 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', csrf_exempt(GraphQLView.as_view(graphiql=True))),
-    path('graphql/', FileUploadGraphQLView.as_view(graphiql=True)),
+    path('graphql', FileUploadGraphQLView.as_view(graphiql=True)),
     path('charts/', include('charts.urls'))
 ]
 if settings.DEBUG:
